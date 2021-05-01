@@ -28,7 +28,7 @@ public class IocTest {
     @Test
     public void xmlConfigTest() {
         try (AbstractApplicationContext factory = new ClassPathXmlApplicationContext(
-                "swt6/spring/basics/ioc/test/applicationContext-xml-config.xml")) {
+                "swt6/spring/basics/ioc/applicationContext-xml-config.xml")) {
 
             System.out.println("***> workLog-setter-injected:");
             WorkLogService workLog1 = factory.getBean("workLog-setter-injected", WorkLogService.class);
@@ -45,7 +45,7 @@ public class IocTest {
     @Test
     public void annotationConfigTest() {
         try (AbstractApplicationContext factory = new ClassPathXmlApplicationContext(
-                "swt6/spring/basics/ioc/test/applicationContext-annotation-config.xml")) {
+                "swt6/spring/basics/ioc/applicationContext-annotation-config.xml")) {
 
             WorkLogService workLog = factory.getBean("workLog", WorkLogService.class);
             workLog.findAllEmployees();

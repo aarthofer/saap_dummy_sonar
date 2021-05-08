@@ -2,9 +2,6 @@ package swt6.spring.basics.ioc;
 
 import org.junit.Ignore;
 import org.junit.Test;
-
-import static org.junit.Assert.assertSame;
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -12,9 +9,12 @@ import swt6.spring.basics.ioc.logic.WorkLogService;
 import swt6.spring.basics.ioc.logic.factorybased.WorkLogServiceImpl;
 import swt6.spring.basics.ioc.logic.javaconfig.WorkLogConfig;
 
+import static org.junit.Assert.assertSame;
+
 
 public class IocTest {
 
+    @Ignore
     @Test
     public void simpleTest() {
         WorkLogService workLog = new WorkLogServiceImpl();
@@ -53,7 +53,6 @@ public class IocTest {
         }
     }
 
-    @Ignore
     @Test
     public void javaConfigTest() {
         try (AbstractApplicationContext factory =

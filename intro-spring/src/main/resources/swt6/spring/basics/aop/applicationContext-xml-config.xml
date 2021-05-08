@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- ==================  definition of target objects ================== -->
+    <!-- ==================  definition of target objects ================== -->
 
-	<!-- TODO -->
+    <bean id="workLog" class="swt6.spring.basics.aop.logic.WorkLogServiceImpl"/>
 
-	<!-- ==================  definition of advices ================== -->
+    <!-- ==================  definition of advices ================== -->
 
-	<!-- TODO -->
+    <bean id="traceAdvice" class="swt6.spring.basics.aop.advice.TraceAdviceXmlBased"/>
 
-	<!-- ==================  definition of aspects ================== -->
+    <!-- ==================  definition of aspects ================== -->
 
-	<aop:config>
+    <aop:config>
 
-		<!-- TODO -->
+        <aop:aspect id="traceAspect" ref="traceAdvice">
+            <aop:pointcut id="findMethods" expression="execution(public * swt6.spring.basics.aop.logic..*find*(..))"/>
+            <aop:pointcut id="findByIdMethods"
+                          expression="execution(public * swt6.spring.basics.aop.logic..find*ById*(..))"/>
+            <aop:before method="traceBefore" pointcut-ref="findMethods"/>
+            <aop:after method="traceAfter" pointcut-ref="findMethods"/>
+            <aop:around method="traceAround" pointcut-ref="findByIdMethods"/>
+            <aop:after-throwing method="traceException" pointcut-ref="findMethods" throwing="exception"/>
+        </aop:aspect>
 
-	</aop:config>
+    </aop:config>
 
 
 </beans>

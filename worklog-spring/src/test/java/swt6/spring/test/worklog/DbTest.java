@@ -36,6 +36,18 @@ public class DbTest {
 
   @Ignore
   @Test
+  public void testCreateJdbcSchema(){
+    try (AbstractApplicationContext factory = new ClassPathXmlApplicationContext(
+            "swt6/spring/worklog/test/applicationContext-jdbc.xml")) {
+      printTitle("create schema", 60, '-');
+      createSchema(factory.getBean("dataSource", DataSource.class),
+              "swt6/spring/worklog/test/CreateWorklogDbSchema.sql");
+    }
+  }
+
+
+  @Ignore
+  @Test
   public void testJdbcInsert() {
 
     try (AbstractApplicationContext factory = new ClassPathXmlApplicationContext(

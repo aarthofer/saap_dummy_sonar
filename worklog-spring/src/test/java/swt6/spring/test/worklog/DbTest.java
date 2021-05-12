@@ -150,39 +150,45 @@ public class DbTest {
   @Test
   public void testJpa() {
     try (AbstractApplicationContext factory = new ClassPathXmlApplicationContext(
-      "swt6/spring/worklog/test/applicationContext-jpa.xml")) {
+            "swt6/spring/worklog/test/applicationContext-jpa.xml")) {
 
-      EntityManagerFactory emFactory = factory.getBean(EntityManagerFactory.class);
-      EmployeeDao emplDao = factory.getBean("employeeDaoJpa", EmployeeDao.class);
+        EntityManagerFactory emFactory = factory.getBean(EntityManagerFactory.class);
+        EmployeeDao emplDao = factory.getBean("employeeDaoJpa", EmployeeDao.class);
 
-      Employee empl1 =
-        new Employee("Josef", "Himmelbauer", LocalDate.of(1950, 1, 1));
+        Employee empl1 =
+                new Employee("Josef", "Himmelbauer", LocalDate.of(1950, 1, 1));
 
-      printTitle("insert/update employee", 60, '-');
-      try {
-        JpaUtil.beginTransaction(emFactory);
-        emplDao.insert(empl1);
-        empl1.setFirstName("Kevin");
-        empl1 = emplDao.merge(empl1);
-      }
-      finally {
-        JpaUtil.commitTransaction(emFactory);
-      }
+        printTitle("insert employee", 60, '-');
+        try {
+            JpaUtil.beginTransaction(emFactory);
+            emplDao.insert(empl1);
+        } finally {
+            JpaUtil.commitTransaction(emFactory);
+        }
 
-      printTitle("find employee", 60, '-');
-      final Long empl1Id = empl1.getId();
-      JpaUtil.executeInTransaction(emFactory, () -> {
-        Employee empl = emplDao.findById(empl1Id);
-        System.out.println("empl=" + (empl == null ? (null) : empl.toString()));
-        empl = emplDao.findById(100L);
-        System.out.println("empl=" + (empl == null ? (null) : empl.toString()));
-      });
+        printTitle("find employee", 60, '-');
+        final Long empl1Id = empl1.getId();
+        JpaUtil.executeInTransaction(emFactory, () -> {
+            Employee empl = emplDao.findById(empl1Id);
+            System.out.println("empl=" + (empl == null ? (null) : empl.toString()));
+            empl = emplDao.findById(100L);
+            System.out.println("empl=" + (empl == null ? (null) : empl.toString()));
+        });
 
-      printTitle("find all employees", 60, '-');
-      JpaUtil.executeInTransaction(emFactory, () -> {
-        System.out.println("findAll");
-        emplDao.findAll().forEach(System.out::println);
-      });
+        printTitle("update employee", 60, '-');
+        try {
+            JpaUtil.beginTransaction(emFactory);
+            empl1 = emplDao.merge(empl1);
+            empl1.setLastName("Himmelbauer-Schmidt");
+        } finally {
+            JpaUtil.commitTransaction(emFactory);
+        }
+
+        printTitle("find all employees", 60, '-');
+        JpaUtil.executeInTransaction(emFactory, () -> {
+            System.out.println("findAll");
+            emplDao.findAll().forEach(System.out::println);
+        });
     }
   }
 

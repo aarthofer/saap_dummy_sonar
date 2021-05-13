@@ -1,3 +1,4 @@
+/*
 package swt6.spring.worklog.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,3 +41,4 @@ public class DatabaseInitializer implements CommandLineRunner {
     workLog.syncEmployee(empl3);
   }
 }
+*/

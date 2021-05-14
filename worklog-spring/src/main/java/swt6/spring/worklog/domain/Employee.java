@@ -1,18 +1,23 @@
 package swt6.spring.worklog.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+@Entity
 public class Employee implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @Id
+  @GeneratedValue
   private Long              id;
   private String            firstName;
   private String            lastName;
   private LocalDate         dateOfBirth;
 
+  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
   private Set<LogbookEntry> logbookEntries = new HashSet<>();
 
   public Employee() { }

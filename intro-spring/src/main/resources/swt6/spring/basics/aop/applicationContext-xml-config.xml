@@ -21,9 +21,9 @@
             <aop:pointcut id="findMethods" expression="execution(public * swt6.spring.basics.aop.logic..*find*(..))"/>
             <aop:pointcut id="findByIdMethods"
                           expression="execution(public * swt6.spring.basics.aop.logic..find*ById*(..))"/>
-            <aop:before method="traceBefore" pointcut-ref="findMethods"/>
-            <aop:after method="traceAfter" pointcut-ref="findMethods"/>
             <aop:around method="traceAround" pointcut-ref="findByIdMethods"/>
+            <aop:after-returning method="traceAfter" pointcut-ref="findMethods"/>
+            <aop:before method="traceBefore" pointcut-ref="findMethods"/>
             <aop:after-throwing method="traceException" pointcut-ref="findMethods" throwing="exception"/>
         </aop:aspect>
 

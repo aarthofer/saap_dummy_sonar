@@ -46,7 +46,7 @@ public class AopTest {
     }
 
 
-    @Ignore
+    //@Ignore
     @Test
     public void annotationConfiguredAopTest(){
         System.out.println("testAOP (annotation config based)");

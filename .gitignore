@@ -3,4 +3,4 @@
 target
 /intro-spring/*.iml
 /worklog-spring/*.iml
-/data/**
+/data

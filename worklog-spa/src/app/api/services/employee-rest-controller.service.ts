@@ -41,8 +41,8 @@ export class EmployeeRestControllerService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json'
+      responseType: 'text',
+      accept: 'text/plain'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
@@ -124,7 +124,7 @@ export class EmployeeRestControllerService extends BaseService {
   /**
    * Employee Data.
    *
-   * Returns detailed data for a given employee
+   * Returns details data for a given employee.
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `getEmployeeById()` instead.
@@ -154,7 +154,7 @@ export class EmployeeRestControllerService extends BaseService {
   /**
    * Employee Data.
    *
-   * Returns detailed data for a given employee
+   * Returns details data for a given employee.
    *
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `getEmployeeById$Response()` instead.

@@ -17,10 +17,7 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // TODO implement me!
-    
-    /*
-    this.employeeService.getEmployees()
+     this.employeeService.getEmployees()
       .subscribe(employees => {
           this.employeeList = employees;
           this.resetError();
@@ -28,7 +25,6 @@ export class EmployeeListComponent implements OnInit {
         (error: HttpErrorResponse) => {
           this.displayError(error);
         });
-     */
   }
 
   private displayError(resp: HttpErrorResponse): void {

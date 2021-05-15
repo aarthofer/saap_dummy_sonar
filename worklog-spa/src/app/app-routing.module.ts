@@ -6,7 +6,7 @@ import {EntryListComponent} from "./entry-list/entry-list.component";
 const routes: Routes = [
   {path:'', redirectTo: 'employees', pathMatch: 'full'},
   {path:'employees', component: EmployeeListComponent},
-  {path:'employees/:employeeId/entries', component: EntryListComponent}
+  {path:'employees/:employeeId/entries', component: EntryListComponent }
 ];
 
 @NgModule({

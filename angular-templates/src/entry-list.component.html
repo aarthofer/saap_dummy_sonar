@@ -1,0 +1,36 @@
+<div class="page-title">
+  <h2 *ngIf="employee">Logbook entries
+    for {{employee.firstName}} {{employee.lastName}}</h2>
+</div>
+
+<div *ngIf="! errorInfo" class="row">
+  <table class="table table-striped table-condensed">
+    <thead>
+    <tr>
+      <th>Activity</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let entry of entryList">
+      <td>{{entry.activity}}</td>
+      <td>{{entry.startTime | date: 'yyyy-MM-dd HH:mm'}}</td>
+      <td>{{entry.endTime   | date: 'yyyy-MM-dd HH:mm'}}</td>
+      <td>
+        <a class="p-1" [routerLink]="['/employees', employee?.id!, 'entries', entry?.id!]">Update (n.a.)</a>
+        <a class="p-1" [routerLink]="" (click)="deleteEntry(entry?.id!)">Delete (n.a.)</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <a [routerLink]="['/employees']">Back to employee list</a>
+</div>
+
+<div *ngIf="errorInfo" class="row text-danger">
+  Error: {{errorInfo}}
+</div>

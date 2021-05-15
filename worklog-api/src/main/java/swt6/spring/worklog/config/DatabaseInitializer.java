@@ -1,6 +1,7 @@
-/*
 package swt6.spring.worklog.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -12,8 +13,13 @@ import swt6.spring.worklog.logic.WorkLogService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Component
+@Profile("dev")
 public class DatabaseInitializer implements CommandLineRunner {
 
+    private Logger logger = LoggerFactory.getLogger( DatabaseInitializer.class );
+
+    @Autowired
   private WorkLogService workLog;
 
   public void setWorkLog(WorkLogService workLog) {
@@ -22,7 +28,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
   @Override
   public void run(String... args) {
-
+    logger.info( "Executing DatabaseInitializer" );
     Employee empl1 = new Employee("Sepp", "Forcher", LocalDate.of(1935, 12, 12));
     empl1.addLogbookEntry(new LogbookEntry("Jour Fixe", LocalDateTime.of(2018, 3, 1, 8, 15), LocalDateTime.of(2018, 3, 1, 10, 0)));
     empl1.addLogbookEntry(new LogbookEntry("Analyse", LocalDateTime.of(2018, 3, 1, 10, 0), LocalDateTime.of(2018, 3, 1, 13, 45)));
@@ -41,4 +47,3 @@ public class DatabaseInitializer implements CommandLineRunner {
     workLog.syncEmployee(empl3);
   }
 }
-*/

@@ -24,7 +24,6 @@ public class IocTest {
 
     }
 
-    @Ignore
     @Test
     public void xmlConfigTest() {
         try (AbstractApplicationContext factory = new ClassPathXmlApplicationContext(
@@ -41,7 +40,6 @@ public class IocTest {
         }
     }
 
-    @Ignore
     @Test
     public void annotationConfigTest() {
         try (AbstractApplicationContext factory = new ClassPathXmlApplicationContext(
@@ -53,7 +51,6 @@ public class IocTest {
         }
     }
 
-    @Ignore
     @Test
     public void javaConfigTest() {
         try (AbstractApplicationContext factory =

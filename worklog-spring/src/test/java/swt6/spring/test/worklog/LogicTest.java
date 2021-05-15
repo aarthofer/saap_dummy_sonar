@@ -13,11 +13,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import swt6.spring.worklog.domain.Employee;
 import swt6.spring.worklog.domain.LogbookEntry;
 import swt6.spring.worklog.logic.WorkLogService;
+import swt6.util.JpaUtil;
 
 
 public class LogicTest {
 
-  @Ignore
   @Test
   public void testBusinessLogicWithJpaDaos() {
     printTitle("testBusinessLogicWithJpaDaos", 60);
@@ -38,13 +38,16 @@ public class LogicTest {
       addLogbookEntry(workLog);
 
       printTitle("findAll", 60, '-');
-      findAll(workLog);
+      // Version 1: keep entity manager open
+      //JpaUtil.openEntityManager( emFactory );
+      //findAll(workLog);
+      //JpaUtil.closeEntityManager( emFactory );
 
+      // Version 2: keep entity manager open in callback
+      JpaUtil.executeInOpenEntityManager( emFactory, () -> findAll(workLog) );
     }
-
   }
 
-  @Ignore
   @Test
   public void testBusinessLogicWithSpringDataRepositories() {
     printTitle("testBusinessLogicWithSpringDataRepositories", 60);
@@ -64,7 +67,8 @@ public class LogicTest {
       addLogbookEntry(workLog);
   
       printTitle("findAll", 60, '-');
-      findAll(workLog);
+
+      JpaUtil.executeInOpenEntityManager( emFactory, () -> findAll(workLog));
     }
 
   }

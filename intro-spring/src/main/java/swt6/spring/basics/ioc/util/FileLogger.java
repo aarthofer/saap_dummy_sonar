@@ -1,11 +1,15 @@
 package swt6.spring.basics.ioc.util;
 
+import org.springframework.stereotype.Component;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 
 
-public class FileLogger {
+@Component
+@Log(Log.Type.FILE)
+public class FileLogger implements Logger {
 
   private PrintWriter writer;
   

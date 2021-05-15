@@ -15,7 +15,6 @@ import swt6.spring.worklog.ui.WorkLogViewModel;
 
 public class UITest {
 
-  @Ignore
   @Test
   public void uiTest() {
 

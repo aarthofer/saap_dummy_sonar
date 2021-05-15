@@ -7,18 +7,21 @@ import java.util.Map;
 
 import swt6.spring.basics.ioc.domain.Employee;
 import swt6.spring.basics.ioc.logic.WorkLogService;
-import swt6.spring.basics.ioc.util.FileLogger;
+import swt6.spring.basics.ioc.util.Logger;
+import swt6.spring.basics.ioc.util.LoggerFactory;
 
 
 public class WorkLogServiceImpl implements WorkLogService {
 
   private Map<Long, Employee> employees = new HashMap<>();
 
-  private FileLogger logger = null;
+  private Logger logger = null;
 
   private void initLogger() {
-    //TODO
-    logger = new FileLogger("log.txt");
+    // Version 1: tight coupling between Logger and Service
+    //logger = new ConsoleLogger(); //new FileLogger("log.txt");
+    // Version 2: using Factory
+    logger = LoggerFactory.getLogger();
   }
 
   private void init() {

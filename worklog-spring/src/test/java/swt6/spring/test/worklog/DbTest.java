@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import swt6.spring.worklog.dao.EmployeeDao;
+import swt6.spring.worklog.dao.EmployeeRepository;
 import swt6.spring.worklog.domain.Employee;
 import swt6.util.*;
 
@@ -16,6 +17,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
 import static swt6.util.PrintUtil.*;
 
 public class DbTest {
@@ -46,7 +50,6 @@ public class DbTest {
   }
 
 
-  @Ignore
   @Test
   public void testJdbcInsert() {
 
@@ -67,8 +70,7 @@ public class DbTest {
     }
   }
   
-  @Ignore
-  @Test 
+  @Test
   public void testJdbcUpdate() {
 
     try (AbstractApplicationContext factory = new ClassPathXmlApplicationContext(
@@ -94,7 +96,6 @@ public class DbTest {
   }
 
 
-  @Ignore
   @Test
   public void testJdbcInsertUpdateFind() {
 
@@ -129,7 +130,6 @@ public class DbTest {
     }
   }
 
-  @Ignore
   @Test
   public void testJpaInsert() {
     try (AbstractApplicationContext factory = new ClassPathXmlApplicationContext(
@@ -139,14 +139,15 @@ public class DbTest {
       var employee =
               new Employee("Jane", "Doe", LocalDate.of(1950, 1, 1));
 
-      //TODO fix me!    
-  
+      EntityManagerFactory emFactory = factory.getBean( EntityManagerFactory.class );
+
+      JpaUtil.beginTransaction( emFactory );
       employeeDao.insert(employee);
       System.out.printf("inserted employee: %s %n ",employee.toString());
+      JpaUtil.commitTransaction( emFactory );
     }
   }
 
-  @Ignore
   @Test
   public void testJpa() {
     try (AbstractApplicationContext factory = new ClassPathXmlApplicationContext(
@@ -192,65 +193,72 @@ public class DbTest {
     }
   }
 
-  @Ignore
   @Test
   public void testSpringData() {
-//    try (AbstractApplicationContext factory = new ClassPathXmlApplicationContext(
-//      "swt6/spring/worklog/test/applicationContext-data.xml")) {
-//
-//      EntityManagerFactory emFactory = factory.getBean(EntityManagerFactory.class);
-//
-//      JpaUtil.executeInTransaction(emFactory, () -> {
-//        EmployeeRepository emplRepo =
-//          JpaUtil.getJpaRepository(emFactory, EmployeeRepository.class);
-//
-//        Employee empl1 =
-//          new Employee("Josef", "Himmelbauer", LocalDate.of(1950, 1, 1));
-//        Employee empl2 = new Employee("Karl", "Malden", LocalDate.of(1940, 5, 3));
-//
-//        printTitle("insert employee", 60, '-');
-//        empl1 = emplRepo.save(empl1);
-//        empl2 = emplRepo.save(empl2);
-//        emplRepo.flush();
-//
-//        printTitle("update employee", 60, '-');
-//        empl1.setLastName("Himmelbauer-Huber");
-//        empl1 = emplRepo.save(empl1);
-//      });
-//
-//      printSeparator(60, '-');
-//
-//      JpaUtil.executeInTransaction(emFactory, () -> {
-//          EmployeeRepository emplRepo =
-//            JpaUtil.getJpaRepository(emFactory, EmployeeRepository.class);
-//
-//          printTitle("findById", 60, '-');
-//          Optional<Employee> empl1 = emplRepo.findById(1L);
-//          System.out.println("empl=" + (empl1.isPresent() ? empl1.get()
-//                                                          : "<not-found>"));
-//
-//          printTitle("findAll", 60, '-');
-//          emplRepo.findAll().forEach(System.out::println);
-//        });
-//
-//      printSeparator(60, '-');
-//
-//      JpaUtil.executeInTransaction(emFactory, () -> {
-//        EmployeeRepository emplRepo =
-//          JpaUtil.getJpaRepository(emFactory, EmployeeRepository.class);
-//
-//        printTitle("findByLastName", 60, '-');
-//        Optional<Employee> empl2 = emplRepo.findByLastName("Malden");
-//        System.out.println(
-//          "empl=" + (empl2.isPresent() ? empl2.get().toString() : "<not-found>"));
-//
-//        printTitle("findByLastNameContaining", 60, '-');
-//        emplRepo.findByLastNameContaining("a").forEach(System.out::println);
-//
-//        printTitle("findOlderThan", 60, '-');
-//        emplRepo.findOlderThan(LocalDate.of(1948, 1, 1))
-//                .forEach(System.out::println);
-//      });
+      try (AbstractApplicationContext factory = new ClassPathXmlApplicationContext(
+              "swt6/spring/worklog/test/applicationContext-data.xml")) {
+
+          EntityManagerFactory emFactory = factory.getBean(EntityManagerFactory.class);
+
+          JpaUtil.executeInTransaction(emFactory, () -> {
+              EmployeeRepository emplRepo =
+                      JpaUtil.getJpaRepository(emFactory, EmployeeRepository.class);
+
+              Employee empl1 =
+                      new Employee("Josef", "Himmelbauer", LocalDate.of(1950, 1, 1));
+              Employee empl2 = new Employee("Karl", "Malden", LocalDate.of(1940, 5, 3));
+
+              printTitle("insert employee", 60, '-');
+              empl1 = emplRepo.save(empl1);
+              empl2 = emplRepo.save(empl2);
+              emplRepo.flush();
+
+              printTitle("update employee", 60, '-');
+              empl1.setLastName("Himmelbauer-Huber");
+              empl1 = emplRepo.save(empl1);
+          });
+
+          printSeparator(60, '-');
+
+          JpaUtil.executeInTransaction(emFactory, () -> {
+              EmployeeRepository emplRepo =
+                      JpaUtil.getJpaRepository(emFactory, EmployeeRepository.class);
+
+              printTitle("findById", 60, '-');
+              Optional<Employee> empl1 = emplRepo.findById(1L);
+              System.out.println("empl=" + (empl1.isPresent() ? empl1.get()
+                      : "<not-found>"));
+
+              printTitle("findAll", 60, '-');
+              emplRepo.findAll().forEach(System.out::println);
+          });
+
+          printSeparator(60, '-');
+
+          JpaUtil.executeInTransaction(emFactory, () -> {
+              EmployeeRepository emplRepo =
+                      JpaUtil.getJpaRepository(emFactory, EmployeeRepository.class);
+
+              printTitle("findByLastName", 60, '-');
+              Optional<Employee> empl2 = emplRepo.findByLastName("Malden");
+              System.out.println(
+              "empl=" + (empl2.isPresent() ? empl2.get().toString() : "<not-found>"));
+
+              printTitle("findByLastNameContaining", 60, '-');
+              emplRepo.findByLastNameContaining("a").forEach(System.out::println);
+
+              printTitle("findOlderThan", 60, '-');
+              emplRepo.findOlderThan(LocalDate.of(1948, 1, 1))
+                      .forEach(System.out::println);
+
+              printTitle( "findFirstNameIn", 60, '-' );
+              emplRepo.findAllByFirstNameIn(List.of("Karl") ).forEach( System.out::println );
+
+              printTitle( "findLastNameContaining", 60, '-' );
+              Optional<Employee> optEmployee = emplRepo.findEmployeeByLastNameContaining( "Ma" );
+              System.out.println( optEmployee.get() );
+          });
+      }
   }
 
 }

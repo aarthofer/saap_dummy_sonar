@@ -46,14 +46,12 @@ public class AopTest {
     }
 
 
-    @Ignore
     @Test
     public void annotationConfiguredAopTest(){
         System.out.println("testAOP (annotation config based)");
         testAOP("swt6/spring/basics/aop/applicationContext-annotation-config.xml");
     }
 
-    @Ignore
     @Test
     public void xmlConfiguredAopTest(){
         System.out.println("testAOP (xml config based)");

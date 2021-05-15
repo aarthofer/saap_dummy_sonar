@@ -11,6 +11,9 @@
                            http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<!-- TODO enable component-scan -->
+	<context:component-scan base-package="swt6.spring.basics.aop"/>
+
+	<!-- enable use of aspectj annotations -->
+	<aop:aspectj-autoproxy />
 
 </beans>

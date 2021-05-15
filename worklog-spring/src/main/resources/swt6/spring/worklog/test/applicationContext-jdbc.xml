@@ -34,8 +34,15 @@
 		<property name="password" value="${database.password}" />
 	</bean>
 
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
 
 	<!-- ========================= DAO DEFINITIONS ========================= -->
+	<bean id="employeeDaoJdbc" class="swt6.spring.worklog.dao.jdbc.EmployeeDaoJdbc" >
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+
 
 	<!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
 

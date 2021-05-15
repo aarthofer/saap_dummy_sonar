@@ -4,12 +4,7 @@ import swt6.spring.worklog.domain.Employee;
 
 import java.util.List;
 
-public interface EmployeeDao{
+public interface EmployeeDao extends GenericDao<Employee, Long> {
 
-        Employee findById(Long id);
-        List<Employee> findAll();
-        void insert(Employee e);
-        Employee merge(Employee e);
-        // void delete(Employee e);
 }
 

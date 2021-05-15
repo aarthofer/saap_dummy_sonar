@@ -5,21 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import swt6.spring.basics.ioc.domain.Employee;
 import swt6.spring.basics.ioc.logic.WorkLogService;
 import swt6.spring.basics.ioc.util.FileLogger;
+import swt6.spring.basics.ioc.util.Log;
+import swt6.spring.basics.ioc.util.Logger;
 
 
 public class WorkLogServiceImpl implements WorkLogService {
 
     private Map<Long, Employee> employees = new HashMap<>();
 
-    private FileLogger logger = null;
-
-    private void initLogger() {
-        //TODO
-        logger = new FileLogger("log.txt");
-    }
+    @Autowired(required = true)
+    @Log(Log.Type.STANDARD)
+    private Logger logger = null;
 
     private void init() {
         employees.put(1L, new Employee(1L, "Bill", "Gates"));
@@ -29,7 +29,15 @@ public class WorkLogServiceImpl implements WorkLogService {
 
     public WorkLogServiceImpl() {
         init();
-        initLogger();
+    }
+
+    public WorkLogServiceImpl(Logger logger) {
+        init();
+        this.logger = logger;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
 
     public Employee findEmployeeById(Long id) {

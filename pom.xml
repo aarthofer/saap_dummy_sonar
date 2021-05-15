@@ -12,6 +12,7 @@
   <modules>
     <module>intro-spring</module>
     <module>worklog-spring</module>
+    <module>worklog-api</module>
   </modules>
 
   <properties>

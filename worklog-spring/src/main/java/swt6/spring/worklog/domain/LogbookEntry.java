@@ -5,15 +5,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.persistence.*;
 
-
+@Entity
 public class LogbookEntry implements Serializable, Comparable<LogbookEntry> {
   private static final long serialVersionUID = 1L;
 
+  @Id @GeneratedValue
   private Long          id;
   private String        activity;
   private LocalDateTime startTime;
   private LocalDateTime endTime;
 
+  @ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
   private Employee employee;
   
   public LogbookEntry() { }

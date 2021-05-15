@@ -11,6 +11,10 @@
 
   <artifactId>worklog-api</artifactId>
 
+  <properties>
+
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -58,7 +62,7 @@
       <artifactId>springdoc-openapi-ui</artifactId>
     </dependency>
 
-    <!-- TODO enable me when needed 
+    <!-- TODO enable me when needed  -->
     <dependency>
       <groupId>swt6.spring</groupId>
       <artifactId>worklog-spring</artifactId>
@@ -70,7 +74,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-    -->
+
   </dependencies>
 
   <build>

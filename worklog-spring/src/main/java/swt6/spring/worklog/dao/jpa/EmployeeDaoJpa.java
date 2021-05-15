@@ -1,6 +1,5 @@
 package swt6.spring.worklog.dao.jpa;
 
-import org.springframework.transaction.annotation.Transactional;
 import swt6.spring.worklog.dao.EmployeeDao;
 import swt6.spring.worklog.domain.Employee;
 

@@ -19,27 +19,14 @@ public class EmployeeDaoJdbc implements EmployeeDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    protected static class EmpoyeeRowMapper implements RowMapper<Employee> {
-
-        @Override
-        public Employee mapRow(ResultSet resultSet, int i) throws SQLException {
-            Employee e = new Employee();
-            e.setId(resultSet.getLong(1));
-            e.setFirstName(resultSet.getString(2));
-            e.setFirstName(resultSet.getString(3));
-            e.setDateOfBirth(resultSet.getDate(4).toLocalDate());
-            return e;
-        }
-    }
-
     @Override
     public Employee findById(Long aLong) {
         final String sql = "SELECT ID, FIRSTNAME, LASTNAME, DATEOFBIRTH FROM EMPLOYEE WHERE ID = ?";
         List<Employee> result = jdbcTemplate.query(sql, new EmpoyeeRowMapper(), aLong);
-        if(result.isEmpty()){
+        if (result.isEmpty()) {
 //            throw new EntityNotFoundException("Employee not found");
             return null;
-        }else if(result.size() > 1){
+        } else if (result.size() > 1) {
             throw new IncorrectResultSizeDataAccessException(result.size());
         }
         return result.get(0);
@@ -97,9 +84,9 @@ public class EmployeeDaoJdbc implements EmployeeDao {
 
     @Override
     public Employee merge(Employee employee) {
-        if(employee.getId() == null){
+        if (employee.getId() == null) {
             insert(employee);
-        }else{
+        } else {
             update(employee);
         }
         return employee;
@@ -108,5 +95,18 @@ public class EmployeeDaoJdbc implements EmployeeDao {
     private void update(Employee employee) {
         final String sql = "UPDATE EMPLOYEE SET FIRSTNAME = ?,  LASTNAME = ?, DATEOFBIRTH = ?";
         jdbcTemplate.update(sql, employee.getFirstName(), employee.getLastName(), Date.valueOf(employee.getDateOfBirth()));
+    }
+
+    protected static class EmpoyeeRowMapper implements RowMapper<Employee> {
+
+        @Override
+        public Employee mapRow(ResultSet resultSet, int i) throws SQLException {
+            Employee e = new Employee();
+            e.setId(resultSet.getLong(1));
+            e.setFirstName(resultSet.getString(2));
+            e.setFirstName(resultSet.getString(3));
+            e.setDateOfBirth(resultSet.getDate(4).toLocalDate());
+            return e;
+        }
     }
 }

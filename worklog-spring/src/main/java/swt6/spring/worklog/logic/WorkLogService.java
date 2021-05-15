@@ -1,10 +1,13 @@
 package swt6.spring.worklog.logic;
 
+import swt6.spring.worklog.domain.Employee;
+
 import java.util.List;
-import swt6.spring.worklog.domain.*;
 
 public interface WorkLogService {
-  public Employee       syncEmployee(Employee employee);
-  public Employee       findEmployeeById(Long id);
-  public List<Employee> findAllEmployees();
+    public Employee syncEmployee(Employee employee);
+
+    public Employee findEmployeeById(Long id);
+
+    public List<Employee> findAllEmployees();
 }

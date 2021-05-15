@@ -18,7 +18,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findByLastNameContaining(@Param("substr") String substr);
 
     @Query("select e from Employee e where e.dateOfBirth < :date")
-    List<Employee> findOlderThan(@Param ("date") LocalDate date);
+    List<Employee> findOlderThan(@Param("date") LocalDate date);
 
     Optional<Employee> findByLastName(String malden);
 

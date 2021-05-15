@@ -12,10 +12,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import swt6.spring.worklog.domain.Employee;
 import swt6.spring.worklog.domain.LogbookEntry;
 import swt6.spring.worklog.ui.WorkLogViewModel;
+import swt6.util.JpaUtil;
 
 public class UITest {
 
-  @Ignore
+  //@Ignore
   @Test
   public void uiTest() {
 

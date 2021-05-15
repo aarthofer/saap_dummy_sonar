@@ -2,7 +2,7 @@ package swt6.spring.worklog.dao;
 
 import java.util.List;
 
-public interface GenericDao <E, ID>{
+public interface GenericDao<E, ID> {
 
     E findById(ID id);
 

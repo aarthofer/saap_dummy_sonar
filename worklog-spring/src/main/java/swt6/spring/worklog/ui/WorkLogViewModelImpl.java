@@ -16,7 +16,10 @@ public class WorkLogViewModelImpl implements WorkLogViewModel {
 
     @Override
     public void saveEmployees(Employee... empls) {
-        Arrays.stream(empls).forEach(e -> workLogService.syncEmployee(e));
+        for (Employee e : empls) {
+            Employee emp = workLogService.syncEmployee(e);
+            e.setId(emp.getId());
+        }
     }
 
     @Override

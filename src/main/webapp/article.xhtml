@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsf/core"
+	template="/WEB-INF/templates/basicTemplate.xhtml">
+	<ui:define name="title">WEA5 BookShop (JSF)</ui:define>
+	<ui:define name="content">
+ 			<h3>
+ 				Article Details (JSF style)
+ 			</h3>  		 			
+
+ 			<table>
+ 				<tr>
+ 					<td>Author:</td>
+ 					<td><h:outputText value="#{webShopUser.article.author}" /></td>
+ 				</tr>
+ 				<tr>
+ 					<td>Title:</td>
+ 					<td><h:outputText value="#{webShopUser.article.title}" /></td>
+ 				</tr>
+ 				<tr>
+ 					<td>Publisher:</td>
+ 					<td><h:outputText value="#{webShopUser.article.publisher}" /></td>
+ 				</tr>
+ 				<tr>
+ 					<td>Year:</td>
+ 					<td><h:outputText value="#{webShopUser.article.year}" /></td>
+ 				</tr>
+ 				<tr>
+ 					<td>Price:</td>
+ 					<td><h:outputText value="#{webShopUser.article.price}" /></td>
+ 				</tr> 
+ 				<tr>
+ 					<td></td>
+ 					<td>
+	 					<h:form>
+							<h:commandButton value="into cart ..." type="submit"
+									action="#{webShopUser.putArticleIntoCart(webShopUser.article.id)}" />
+					  	</h:form>
+				  	</td>
+ 				</tr>				 				 				
+ 			</table>
+
+			<p></p>
+	</ui:define>
+</ui:composition>

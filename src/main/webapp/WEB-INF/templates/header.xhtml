@@ -1,0 +1,16 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+	<div style="width:100%;font-size:36px;line-height:48px;background-color:navy;color:white">WEA5 BookShop (JSF 2.x)</div>
+	<h:form id="navForm">
+		<h:panelGrid columns="5">
+			<h:commandButton value="Home" type="submit" action="ShowHome" />
+			<h:commandButton value="Browse Books" type="submit"
+				action="#{webShopUser.allArticles}" />  
+			<h:commandButton value="Show Cart" type="submit" action="shoppingCart" />
+			<h:commandButton value="Checkout" type="submit"
+				action="#{webShopUser.checkout}" />
+		</h:panelGrid>
+	</h:form>
+</ui:composition>

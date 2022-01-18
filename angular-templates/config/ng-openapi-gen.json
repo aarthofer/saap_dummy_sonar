@@ -1,7 +1,0 @@
-{
-  "$schema": "node_modules/ng-openapi-gen/ng-openapi-gen-schema.json",
-  "input": "../worklog-api/target/worklog-api-1.0.json",
-  "input-v2": "http://localhost:8080/v3/api-docs",
-  "output": "src/app/api",
-  "ignoreUnusedModels": true
-}

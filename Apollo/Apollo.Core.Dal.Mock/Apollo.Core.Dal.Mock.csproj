@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Configurations>Debug;Release;Docker</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.15.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Apollo.Core.Dal.Interface\Apollo.Core.Dal.Interface.csproj" />
+    <ProjectReference Include="..\Apollo.Core.Domain\Apollo.Core.Domain.csproj" />
+    <ProjectReference Include="..\Apollo.BLInterface\Apollo.BLInterface.csproj" />
+  </ItemGroup>
+</Project>

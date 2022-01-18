@@ -1,8 +1,0 @@
-# install
-# npm install -g ng-openapi-gen
-
-# version 1: use settings in ng-openapi-gen.json
-# ng-openapi-gen
-
-# version 2: directly refer to the file in worklog-api
-ng-openapi-gen --input "../worklog-api/target/worklog-api-1.0.json" --output "src/app/api"

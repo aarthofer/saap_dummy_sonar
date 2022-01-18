@@ -1,0 +1,5 @@
+FROM mysql
+
+ENV MYSQL_DATABASE apollo
+
+COPY ./DBScripts/sql-scripts/ /docker-entrypoint-initdb.d

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Apollo.Terminal": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "Hosting:Environment": "Development"
+      }
+    }
+  }
+}

@@ -1,9 +1,0 @@
-@url = http://localhost:5000
-GET {{url}}/Movie/1
-###
-
-GET {{url}}/Schedule
-
-###
-
-GET {{url}}/cinemas/1
